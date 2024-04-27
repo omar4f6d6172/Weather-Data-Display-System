@@ -1,0 +1,93 @@
+title: "Weather Data Display System" {
+  near: top-center
+  shape: text
+  style: {
+    font-size: 18
+    bold: true
+    underline: false
+  }
+}
+
+OpenMeteo: {
+  shape: cloud
+  OpenMeteoAPI: "Fetch Weather Data"
+}
+
+RaspberryPi: {
+  shape: rectangle
+  sendViaSPI: "+(message string) error"
+  main: "+()"
+  WebFrontend: "Hosts & Manages City Selection"
+  label: "Raspberry Pi"
+}
+
+STM32: {
+  shape: rectangle
+  displayData: "+(data string)"
+  label: "ST Micro 'Nucleo' L432KC"
+}
+
+Display: {
+  shape: rectangle
+  label: "EA DOGM162L-A Display"
+  description: |md
+    # 8-bit SPI Display
+    - Shows weather data received from STM32
+  |
+}
+
+CloudflareTunnel: {
+  shape: cloud
+  link: "omar.datakitchen.xyz to Localhost Port 80"
+  label: "Cloudflare Tunnel"
+}
+
+# Connections
+OpenMeteo -> RaspberryPi: "JSON weather data"
+RaspberryPi -> STM32: "SPI Weather Data" {
+  style: {
+    stroke: blue
+    stroke-width: 2
+  }
+}
+STM32 -> Display: "Displays data" {
+  style: {
+    stroke: green
+    stroke-width: 2
+    stroke-dash: 4
+  }
+}
+CloudflareTunnel -> RaspberryPi: "Secure Tunnel" {
+  style: {
+    stroke: orange
+    stroke-width: 2
+    stroke-dash: 2
+  }
+}
+
+# Updated flow description with Cloudflare Tunnel
+flow_description: |md
+  # Detailed System Flow
+  - **Open Meteo API**: Fetches weather data based on city coordinates.
+  - **Raspberry Pi**: Processes API data, hosts the web frontend, sends data via SPI.
+  - **Cloudflare Tunnel**: Securely routes external web requests to the Raspberry Pi.
+  - **STM32 (ST Micro 'Nucleo' L432KC)**: Receives data from Raspberry Pi and sends it to the display.
+  - **Display (EA DOGM162L-A Display)**: Shows the weather data via an 8-bit connection.
+|
+# Styling
+OpenMeteo.style: {
+  fill: lightblue
+  stroke: navy
+}
+RaspberryPi.style: {
+  fill: orange
+  stroke: brown
+}
+STM32.style: {
+  fill: lightgreen
+  stroke: darkgreen
+}
+Display.style: {
+  fill: grey
+  stroke: black
+}
