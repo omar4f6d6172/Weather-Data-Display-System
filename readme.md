@@ -71,6 +71,7 @@ The Weather Data Display System is an innovative project designed to fetch, proc
 - HTML/CSS: For the web interface hosted on the Raspberry Pi.
 
 
+
 ## Getting Started
 
 To get started with the Weather Data Display System, follow these steps to set up the project on your Raspberry Pi and STM32 microcontroller.
@@ -111,10 +112,18 @@ Follow these steps to install and run the application:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Web Interface 
+
+Allows the user to change the location and view the weather data fetched from the OpenMeteo API on the Display connected to the STM32 microcontroller.
+
+![](frontend.png)
+
 ## Usage
+**RaspberryPi**
 
 After deploying with the script, the Raspberry Pi application will start automatically and host a web interface accessible via the configured domain or IP address. This interface allows you to view and manage weather data collected through the OpenMeteo API.
-STM32
+
+**STM32**
 
 The STM32 microcontroller displays the weather data sent from the Raspberry Pi on the EA DOGM162L-A LCD. The microcontroller should be connected as specified in the hardware setup documentation, and it will start displaying data once flashed and powered.
 
