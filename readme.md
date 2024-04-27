@@ -110,8 +110,8 @@ Follow these steps to install and run the application:
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Usage
-Raspberry Pi
 
 After deploying with the script, the Raspberry Pi application will start automatically and host a web interface accessible via the configured domain or IP address. This interface allows you to view and manage weather data collected through the OpenMeteo API.
 STM32
@@ -120,6 +120,7 @@ The STM32 microcontroller displays the weather data sent from the Raspberry Pi o
 
 For more details on interacting with the system and examples of the interface, please refer to the Documentation.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Roadmap
 
 - [x] Implement weather data fetching via OpenMeteo API.
