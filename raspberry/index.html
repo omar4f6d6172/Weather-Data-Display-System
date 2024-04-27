@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Temperatures</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/daisyui/dist/full.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .card {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="text-3xl font-bold mb-6">Select a City to Display Weather</h1>
+        <select id="citySelect" class="select select-bordered w-full max-w-xs">
+            {{range .}}
+            <option value="{{.Name}}">{{.Name}}</option>
+            {{end}}
+        </select>
+        <div id="cityInfo" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('citySelect').addEventListener('change', function() {
+            fetch(`/city/${this.value}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('cityInfo').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading the city data:', error));
+        });
+    </script>
+</body>
+</html>
