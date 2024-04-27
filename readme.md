@@ -96,7 +96,7 @@ Follow these steps to install and run the application:
 
 2. Navigate to the project directory:
     ```sh
-    cd Weather-Data-Display-System
+    cd weather-data-display-system/raspberry/ 
     ```
 
 3. Run the deployment script for the Raspberry Pi:
