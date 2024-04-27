@@ -28,6 +28,10 @@ fi
 
 echo "Build successful."
 cd ..
+
+# Delete the existing binary on the Raspberry Pi
+echo "Deleting existing binary on the Raspberry Pi..."
+ssh $PI_ADDRESS "rm -f $REMOTE_APP_DIR/$APP_BINARY"
 # Copy the binary and HTML template to the Raspberry Pi
 echo "Copying files to the Raspberry Pi..."
 scp $LOCAL_APP_DIR/$APP_BINARY $PI_ADDRESS:$REMOTE_APP_DIR
@@ -42,8 +46,15 @@ fi
 echo "Files copied successfully."
 
 # Run the application on the Raspberry Pi
-echo "Starting the application on the Raspberry Pi..."
-ssh $PI_ADDRESS "chmod +x $REMOTE_APP_DIR/$APP_BINARY && $REMOTE_APP_DIR/$APP_BINARY"
+echo "Starting the application on the Raspberry Pi...  "
+ssh $PI_ADDRESS "
+    echo 'Killing any process using port 8080...'
+    sudo fuser -k 8080/tcp
+    echo 'Starting new instance of the application...'
+   
+    chmod +x $REMOTE_APP_DIR/$APP_BINARY && $REMOTE_APP_DIR/$APP_BINARY & exit
+
+"
 
 # Print the final status
 if [ $? -eq 0 ]; then
@@ -52,3 +63,7 @@ else
     echo "Failed to start the application."
     exit 1
 fi
+
+
+# finish the script
+exit 0
